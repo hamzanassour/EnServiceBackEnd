@@ -1,34 +1,43 @@
 package com.example.enserviceback.controller;
 
 import com.example.enserviceback.entity.Student;
-import com.example.enserviceback.entity.User;
 import com.example.enserviceback.service.KeycloakService;
 import com.example.enserviceback.service.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
 @RequestMapping("/students")
 public class StudentController {
 
-    @Autowired
-    KeycloakService keycloakService ;
-    @Autowired
-    StudentService studentService ;
 
-    // student registration .
+    private KeycloakService keycloakService ;
+
+    private  StudentService studentService ;
+
+    // Constructor Injection
+
+    public  StudentController( KeycloakService keycloakService , StudentService studentService  ){
+        this.studentService  = studentService ;
+        this.keycloakService = keycloakService ;
+    }
+
+
 
 
     @GetMapping
-    public String someTHing(){
-        return "Hi Hi Hi ";
+    public ResponseEntity<List<Student>> getAllStudents(){
+        return ResponseEntity.status (HttpStatus.OK ).body (studentService.getAllStudents ());
     }
     @PostMapping(value = "" )
-    public String addUser(@RequestBody Student student){
+    public ResponseEntity<Student> addUser(@RequestBody Student student){
         keycloakService.addUserToKeycloak (student);
-        studentService.saveStudent (student);
-        return "User Added Successfully to keycloak ";
+        Student savedStudent = studentService.saveStudent (student);
+        return ResponseEntity.status (HttpStatus.CREATED).body (savedStudent);
     }
 
 

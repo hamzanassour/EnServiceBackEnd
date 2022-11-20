@@ -3,7 +3,6 @@ package com.example.enserviceback.service;
 import com.example.enserviceback.config.Credentials;
 import com.example.enserviceback.config.KeycloakAminClientConfig;
 import com.example.enserviceback.entity.Student;
-import com.example.enserviceback.entity.User;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -15,9 +14,9 @@ import java.util.Collections;
 public class KeycloakService {
 
     public void addUserToKeycloak(Student student){
-        System.out.println ("ho");
         // create a Password Representation that will be accepted by keyCloak from user password
         CredentialRepresentation credential = Credentials.createPasswordCredentials(student.getPassword());
+        // credential.setTemporary (true);
 
         // keycloak accept specific information about a user  (object from userRepresentation class )
         UserRepresentation user = new UserRepresentation(); // keycloak class
@@ -34,6 +33,7 @@ public class KeycloakService {
         instance.create(user);
 
     }
+    // delete update activate / deactivate  .... user from keycloak must be here
 
 
 }
