@@ -16,7 +16,8 @@ public class KeycloakService {
     public void addUserToKeycloak(Student student){
         // create a Password Representation that will be accepted by keyCloak from user password
         CredentialRepresentation credential = Credentials.createPasswordCredentials(student.getPassword());
-        // credential.setTemporary (true);
+
+         credential.setTemporary (true); // to set a temporary user password that should be modified in the first login
 
         // keycloak accept specific information about a user  (object from userRepresentation class )
         UserRepresentation user = new UserRepresentation(); // keycloak class

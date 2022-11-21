@@ -1,10 +1,12 @@
 package com.example.enserviceback.entity;
 
+import com.example.enserviceback.entity.enumerations.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,4 +22,9 @@ public class User {
     @Transient
     private String password;
     private String email;
+
+
+
+   // List<Role> roleList ;
+
 }
