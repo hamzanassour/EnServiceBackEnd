@@ -2,6 +2,7 @@ package com.example.enserviceback.service;
 
 import com.example.enserviceback.config.Credentials;
 import com.example.enserviceback.config.KeycloakAminClientConfig;
+import com.example.enserviceback.dto.StudentDto;
 import com.example.enserviceback.entity.Student;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
@@ -13,7 +14,7 @@ import java.util.Collections;
 @Service
 public class KeycloakService {
 
-    public void addUserToKeycloak(Student student){
+    public void addUserToKeycloak(StudentDto student){
         // create a Password Representation that will be accepted by keyCloak from user password
         CredentialRepresentation credential = Credentials.createPasswordCredentials(student.getPassword());
 
