@@ -18,8 +18,6 @@ public class StudentDto {
     @CsvBindByName
     private String lastName;
     @CsvBindByName
-    private String password;
-    @CsvBindByName
     private String email;
     @CsvBindByName
     private String cne ;

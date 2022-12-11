@@ -13,7 +13,7 @@ public class KeycloakAminClientConfig {
     public final static String serverUrl = "http://localhost:8080/auth";
     public final static String realm = "test";
     public final static String clientId = "admin-cli";
-    public final static String clientSecret = "h2fh2PlPxfn1DV0UGfFVkEVAyBYXhcaO";
+    public final static String clientSecret = "d3lbAwUz7Lk5dlFluBTu51q1Ac2mvG0s";
     public final static String userName = "admin";
     public final static String password = "admin";
 

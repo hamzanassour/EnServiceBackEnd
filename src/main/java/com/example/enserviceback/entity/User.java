@@ -1,7 +1,5 @@
 package com.example.enserviceback.entity;
 
-import com.example.enserviceback.entity.enumerations.Role;
-import com.opencsv.bean.CsvBindByName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +24,7 @@ public class User {
 
 
 
-   // List<Role> roleList ;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Role> roles;
 
 }
