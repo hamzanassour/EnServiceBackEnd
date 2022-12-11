@@ -2,30 +2,25 @@ package com.example.enserviceback.controller;
 
 import com.example.enserviceback.dto.StudentDto;
 import com.example.enserviceback.entity.Student;
+import com.example.enserviceback.exceptions.SavingStudentInProviderException;
 import com.example.enserviceback.mapper.StudentMapper;
 import com.example.enserviceback.repository.StudentRepository;
 import com.example.enserviceback.service.KeycloakService;
 import com.example.enserviceback.service.StudentService;
 import com.example.enserviceback.utils.Constants;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
+import com.example.enserviceback.utils.Parser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RestController
 @RequestMapping("/api/v0/admin")
 public class AdminController {
-
 
     private KeycloakService keycloakService ;
 
@@ -52,7 +47,7 @@ public class AdminController {
         return ResponseEntity.status (HttpStatus.OK ).body (studentService.getAllStudents ());
     }
     @PostMapping(value = "" )
-    public ResponseEntity<Student> addUser(@RequestBody StudentDto studentDto){
+    public ResponseEntity<Student> addUser(@RequestBody StudentDto studentDto) throws SavingStudentInProviderException {
         Student student = studentMapper.studentFromStudentDto(studentDto);
         keycloakService.addStudentToKeycloakWithRole(student , Constants.STUDENT_ROLE);
         Student savedStudent = studentService.saveStudentWithRole(student ,Constants.STUDENT_ROLE );
@@ -60,37 +55,18 @@ public class AdminController {
     }
 
     @PostMapping(value = "/batch" )
-    public ResponseEntity<List<Student>> addUsers(@RequestPart MultipartFile file){
-        // users extracted from the csv file
-        List<StudentDto> studentDtos = new ArrayList<> ();
-        List<Student> students = new ArrayList<>();
-        // parse CSV file to create a list of `User` objects
-        try (Reader reader = new BufferedReader (new InputStreamReader (file.getInputStream()))) {
-
-            // create csv bean reader
-            CsvToBean<StudentDto> csvToBean = new CsvToBeanBuilder (reader)
-                    .withType(StudentDto.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-
-            // convert `CsvToBean` object to list of users
-            studentDtos = csvToBean.parse();
-
-          students =  studentDtos.stream ().map(studentDto -> studentMapper.studentFromStudentDto(studentDto)).collect(Collectors.toList());
-
-
-
-        } catch (Exception ex) {
-            ex.printStackTrace ();
-        }
-
+    public ResponseEntity<List<Student>> addUsers(@RequestPart MultipartFile file) throws SavingStudentInProviderException {
+        List<Student> students = Parser.getStudents(file);
+        List<Student> savedStudents = new ArrayList<>();
         for (Student student : students){
             keycloakService.addStudentToKeycloakWithRole(student , Constants.STUDENT_ROLE);
-            // studentDto to student  mapping ! need refactoring when we will integrate mapstruct for mapping purposes
             Student savedStudent = studentService.saveStudentWithRole(student , Constants.STUDENT_ROLE);
+            savedStudents.add(savedStudent);
         }
-        return ResponseEntity.status (HttpStatus.OK).body (students) ;
+        return ResponseEntity.status (HttpStatus.OK).body (savedStudents) ;
     }
+
+
 
     @GetMapping(value = "{apogee}" )
     public ResponseEntity<Student> findUser(@PathVariable long apogee){
