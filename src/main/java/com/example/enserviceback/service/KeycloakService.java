@@ -3,6 +3,7 @@ package com.example.enserviceback.service;
 import com.example.enserviceback.config.Credentials;
 import com.example.enserviceback.config.KeycloakAminClientConfig;
 import com.example.enserviceback.entity.Student;
+import com.example.enserviceback.entity.User;
 import com.example.enserviceback.exceptions.SavingStudentInProviderException;
 import com.example.enserviceback.utils.Constants;
 import org.keycloak.admin.client.resource.UserResource;
@@ -19,14 +20,20 @@ import java.util.Collections;
 public class KeycloakService {
 
 
-    public void addStudentToKeycloakWithRole(Student student , String roleName) throws SavingStudentInProviderException {
-        CredentialRepresentation credential = Credentials.createPasswordCredentials(Constants.DEFAULT_PASSWORD);
+    public void addUserToKeycloakWithRole(User userToBeSaved , String roleName) throws SavingStudentInProviderException {
+        CredentialRepresentation credential ;
+        if (checkIfUserIsStudent(userToBeSaved)){
+            credential   = Credentials.createPasswordCredentials(Constants.STUDENT_DEFAULT_PASSWORD);
+        }
+        else {
+            credential = Credentials.createPasswordCredentials(Constants.TEACHER_DEFAULT_PASSWORD);
+        }
         credential.setTemporary (true);
         UserRepresentation user = new UserRepresentation();
-        user.setUsername(student.getEmail());
-        user.setFirstName(student.getFirstName());
-        user.setLastName(student.getLastName());
-        user.setEmail(student.getEmail());
+        user.setUsername(userToBeSaved.getEmail());
+        user.setFirstName(userToBeSaved.getFirstName());
+        user.setLastName(userToBeSaved.getLastName());
+        user.setEmail(userToBeSaved.getEmail());
         user.setCredentials(Collections.singletonList(credential));
         user.setEnabled(true);
         UsersResource instance = KeycloakAminClientConfig.getInstance ().realm (KeycloakAminClientConfig.realm).users ();
@@ -35,7 +42,7 @@ public class KeycloakService {
         if (response.getStatus() == 201) {
             String userId = response.getLocation().getPath().replaceAll(".*/([^/]+)$", "$1");
             UserResource userResource = instance.get(userId);
-            RoleRepresentation roleRepresentation = KeycloakAminClientConfig.getInstance().realm(KeycloakAminClientConfig.realm).roles().get(Constants.STUDENT_ROLE).toRepresentation();
+            RoleRepresentation roleRepresentation = KeycloakAminClientConfig.getInstance().realm(KeycloakAminClientConfig.realm).roles().get(roleName).toRepresentation();
             userResource.roles().realmLevel().add(Collections.singletonList(roleRepresentation));
         } else {
 
@@ -44,6 +51,14 @@ public class KeycloakService {
 
 
     }
+
+    private boolean checkIfUserIsStudent(User user){
+        if(user instanceof Student){
+            return true;
+        }
+        else return false ;
+    }
+
 
 
 }

@@ -9,6 +9,6 @@ import org.mapstruct.Mapper;
 public interface StudentMapper {
 
     Student studentFromStudentDto(StudentDto studentDto);
-    UserRepresentation studentToUserRepresentation(Student student);
+
 
 }
