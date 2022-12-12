@@ -30,10 +30,8 @@ import java.util.List;
 public class AdminController {
 
     private KeycloakService keycloakService ;
-
     private  StudentService studentService ;
     private TeacherService teacherService ;
-
     private StudentMapper studentMapper ;
     private TeacherMapper teacherMapper;
     private final StudentRepository studentRepository;
@@ -64,16 +62,14 @@ public class AdminController {
         return ResponseEntity.status (HttpStatus.OK).body (savedStudents) ;
     }
 
-
-
     @GetMapping(value = "/student/{apogee}" )
     public ResponseEntity<Student> findStudent(@PathVariable long apogee){
         Student student = studentRepository.findByApogee(apogee);
         return ResponseEntity.status (HttpStatus.FOUND).body (student);
     }
     @GetMapping(value = "/teacher/{firstName}" )
-    public ResponseEntity<Teacher> findTeacher(@PathVariable String firstName){
-        Teacher teacher = teacherRepository.findByFirstName(firstName);
+    public ResponseEntity<List<Teacher>> findTeacher(@PathVariable String firstName){
+        List<Teacher> teacher = teacherRepository.findByFirstName(firstName);
         return ResponseEntity.status (HttpStatus.FOUND).body (teacher);
     }
     @PostMapping(value = "/teacher" )

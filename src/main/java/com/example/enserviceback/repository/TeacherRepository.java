@@ -3,8 +3,10 @@ package com.example.enserviceback.repository;
 import com.example.enserviceback.entity.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface TeacherRepository extends JpaRepository<Teacher , Long> {
 
-    Teacher findByFirstName(String firstName);
+    List<Teacher> findByFirstName(String firstName);
 
 }
