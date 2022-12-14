@@ -73,7 +73,7 @@ With EnService, students can easily access and view their grades and academic re
      - Once you are on the IAM dashboard, you can click on the "Users" tab in the left-hand menu and then click the "Add user" button in the top-right             corner     of the page
      - On the next page, you will be prompted to enter a user name for your new IAM user, as well as select the "Programmatic access" option under "Access         type" to grant the user access to the AWS API. You can then click the "Next: Permissions" button to continue.
      - give your IAM user an AdministratorAccess 
-     -  take the  generated access_key and the secret_key and save them .
+     - take the  generated access_key and the secret_key and save them .
 
   create 2 env variables AWS_ACCESS_KEY and AWS_SECRET_KEY and give them the access_key and secret_key for the IAM user that you create 
 
