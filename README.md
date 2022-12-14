@@ -54,6 +54,17 @@ With EnService, students can easily access and view their grades and academic re
     7- Click on the Apply button to save the changes.
 
     8- Click on the OK button to close the Edit Configurations window.
+    
+   This is a list of the evn variables that you should set on your project :
+    
+    KEYCLOAK_ADMIN_PASSWORD=xxxxxxxxxxxxx
+    KEYCLOAK_ADMIN_USERNAME=xxxxxxxxxxxxx
+    KEYCLOAK_CLIENT_SECRET=xxxxxxxxxxxxx
+    KEYCLOAK_REALM=xxxxxxxxxxxxxxx
+    KEYCLOAK_SERVER_URL=xxxxxxxxxxx
+    SPRING_DATASOURCE_PASSWORD=xxxxxxxxxxxx
+    SPRING_DATASOURCE_URL=jdbc:xxxxxxxxxx
+    SPRING_DATASOURCE_USERNAME=xxxxxx
 
 
 
