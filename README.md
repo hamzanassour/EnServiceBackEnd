@@ -35,7 +35,25 @@ With EnService, students can easily access and view their grades and academic re
    
       docker run -d --name keycloak -p 8080:8080 jboss/keycloak
       docker run -d --name postgres -p 5432:5432 postgres
+   4- set your environnements variables 
    
+   To set environment variables in the IntelliJ IDEA editor, you can follow these steps:
+
+    1- Open your Spring Boot project in IntelliJ IDEA.
+
+    2- In the top menu bar, click on the Run menu and select Edit Configurations.
+
+    3- In the Edit Configurations window, select the configuration for your Spring Boot application and click on the Environment tab.
+
+    4- In the Environment tab, click on the + button to add a new environment variable.
+
+    5- In the Name field, enter the name of the environment variable. In the Value field, enter the value of the environment variable.
+
+    6- Repeat steps 4 and 5 for each environment variable you want to set.
+
+    7- Click on the Apply button to save the changes.
+
+    8- Click on the OK button to close the Edit Configurations window.
 
 
 
