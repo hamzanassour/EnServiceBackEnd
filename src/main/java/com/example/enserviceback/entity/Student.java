@@ -3,6 +3,7 @@ package com.example.enserviceback.entity;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.util.List;
@@ -23,6 +24,9 @@ public class Student extends User {
     private String filiere ;  // specified by admin
     private String phone ;    // given  by student
     private LocalDate birthDate ; //  specified by admin
+
+    @ManyToMany
+    private List<Announcement> announcements ;
 
     @Override
     public String toString() {

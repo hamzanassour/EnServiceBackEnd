@@ -30,6 +30,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         http.authorizeRequests ().antMatchers ("/h2-console/**").permitAll (); // allow access to h2 console
         http.headers ().frameOptions ().disable ();
         http.authorizeRequests ()
-         .antMatchers("/api/v0/admin/**").hasAuthority(Constants.ADMIN_ROLE);
+         .antMatchers("/api/v0/admin/**").hasAuthority(Constants.ADMIN_ROLE)
+                .antMatchers("/announcements/**").hasAuthority(Constants.ADMIN_ROLE);
     }
 }

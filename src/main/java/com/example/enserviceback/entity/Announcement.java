@@ -1,14 +1,12 @@
 package com.example.enserviceback.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -23,10 +21,13 @@ public class Announcement {
     private String announcementTitle ;
     private String announcementBody ;
     private String announcementFilePath ;
-    private String announcementSender ; // sender full name
-    private Date announcementIssueDate; // date of announcement
-    private String announcementTargetCrowd ; // level
+    private String announcementSenderEmail ;
+    private Date announcementIssueDate;
+    private String announcementTargetCrowd ;
 
+    @ManyToOne
+    @JsonIgnore
+    private Admin admin ;
 
 
 
