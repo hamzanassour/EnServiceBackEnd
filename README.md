@@ -19,6 +19,26 @@ With EnService, students can easily access and view their grades and academic re
        - Secure login to protect students' personal information
        
  # Installation
+ 
+ in order to use this application you need to have docker installed and keycloak , postgres containers runing on you machines 
+ 
+   1- To install Docker on Ubuntu, you can use the following command
+   
+      sudo apt-get install docker-ce
+     
+   2- Once Docker is installed, you can pull the Keycloak and Postgres containers using the docker pull command : 
+   
+      docker pull jboss/keycloak
+      docker pull postgres
+      
+   3- To start the Keycloak and Postgres containers, you can use the docker run command:
+   
+      docker run -d --name keycloak -p 8080:8080 jboss/keycloak
+      docker run -d --name postgres -p 5432:5432 postgres
+   
+
+
+
 
 
     
