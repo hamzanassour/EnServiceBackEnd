@@ -20,6 +20,7 @@ public class Announcement {
     private Long id ;
     private String announcementTitle ;
     private String announcementBody ;
+    @Column(length = 1024)
     private String announcementFilePath ;
     private String announcementSenderEmail ;
     private Date announcementIssueDate;
