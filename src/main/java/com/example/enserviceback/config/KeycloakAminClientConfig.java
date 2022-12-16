@@ -11,17 +11,17 @@ import org.springframework.stereotype.Component;
 public class KeycloakAminClientConfig {
 
     static Keycloak keycloak = null;
-    @Value("${KEYCLOAK_CLIENT_SECRET}")
-    public  static String serverUrl;
-    @Value("${KEYCLOAK_REALM}")
-    public  static String realm ;
+    //@Value("${KEYCLOAK_SERVER_URL}")
+    public  static String serverUrl = "http://localhost:8080/auth";
+    //@Value("${KEYCLOAK_REALM}")
+    public  static String realm = "test";
     public final static String clientId = "admin-cli";
-    @Value("${DB_USERNAME}")
-    public  static String clientSecret;
-    @Value("${KEYCLOAK_ADMIN_USERNAME}")
-    public  static String userName ;
-    @Value("${KEYCLOAK_ADMIN_PASSWORD}")
-    public  static String password ;
+    //@Value("${KEYCLOAK_CLIENT_SECRET}")
+    public  static String clientSecret = "d3lbAwUz7Lk5dlFluBTu51q1Ac2mvG0s";
+    //@Value("${KEYCLOAK_ADMIN_USERNAME}")
+    public  static String userName = "admin" ;
+    //@Value("${KEYCLOAK_ADMIN_PASSWORD}")
+    public  static String password = "admin" ;
 
 
     public static Keycloak getInstance(){
