@@ -10,23 +10,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class KeycloakAminClientConfig {
 
-    static Keycloak keycloak = null;
-    //@Value("${KEYCLOAK_SERVER_URL}")
-    public  static String serverUrl = "http://localhost:8080/auth";
-    //@Value("${KEYCLOAK_REALM}")
-    public  static String realm = "test";
-    public final static String clientId = "admin-cli";
-    //@Value("${KEYCLOAK_CLIENT_SECRET}")
-    public  static String clientSecret = "d3lbAwUz7Lk5dlFluBTu51q1Ac2mvG0s";
-    //@Value("${KEYCLOAK_ADMIN_USERNAME}")
-    public  static String userName = "admin" ;
-    //@Value("${KEYCLOAK_ADMIN_PASSWORD}")
-    public  static String password = "admin" ;
+     Keycloak keycloak = null;
+    @Value("${KEYCLOAK_SERVER_URL}")
+    public  String serverUrl ;
+    @Value("${KEYCLOAK_REALM}")
+    public  String realm ;
+    public  String clientId = "admin-cli";
+    @Value("${KEYCLOAK_CLIENT_SECRET}")
+    public  String clientSecret ;
+    @Value("${KEYCLOAK_ADMIN_USERNAME}")
+    public   String userName ;
+    @Value("${KEYCLOAK_ADMIN_PASSWORD}")
+    public  String password  ;
 
 
-    public static Keycloak getInstance(){
-        if(keycloak == null){
-
+    public  Keycloak getInstance(){
             keycloak = KeycloakBuilder.builder()
                     .serverUrl(serverUrl)
                     .realm(realm)
@@ -38,7 +36,6 @@ public class KeycloakAminClientConfig {
                     .resteasyClient(new ResteasyClientBuilder ()
                             .connectionPoolSize(10)
                             .build()).build ();
-        }
         return keycloak;
     }
 }

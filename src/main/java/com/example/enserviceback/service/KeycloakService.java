@@ -11,6 +11,7 @@ import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.Response;
@@ -18,6 +19,10 @@ import java.util.Collections;
 
 @Service
 public class KeycloakService {
+
+
+    @Autowired
+    KeycloakAminClientConfig keycloakAminClientConfig ;
 
 
     public void addUserToKeycloakWithRole(User userToBeSaved , String roleName) throws SavingStudentInProviderException {
@@ -36,13 +41,13 @@ public class KeycloakService {
         user.setEmail(userToBeSaved.getEmail());
         user.setCredentials(Collections.singletonList(credential));
         user.setEnabled(true);
-        UsersResource instance = KeycloakAminClientConfig.getInstance ().realm (KeycloakAminClientConfig.realm).users ();
+        UsersResource instance = keycloakAminClientConfig.getInstance ().realm (keycloakAminClientConfig.realm).users ();
         Response response = instance.create(user);
 
         if (response.getStatus() == 201) {
             String userId = response.getLocation().getPath().replaceAll(".*/([^/]+)$", "$1");
             UserResource userResource = instance.get(userId);
-            RoleRepresentation roleRepresentation = KeycloakAminClientConfig.getInstance().realm(KeycloakAminClientConfig.realm).roles().get(roleName).toRepresentation();
+            RoleRepresentation roleRepresentation = keycloakAminClientConfig.getInstance().realm(keycloakAminClientConfig.realm).roles().get(roleName).toRepresentation();
             userResource.roles().realmLevel().add(Collections.singletonList(roleRepresentation));
         } else {
 

@@ -16,14 +16,12 @@ public class SignedUrl {
        long expTimeMillis = expiration.getTime();
        expTimeMillis += 1000 * 60 * 60; // Add 1 hour.
        expiration.setTime(expTimeMillis);
-
-       // Generate the presigned URL.
+       // Generate the presigned URL .
        GeneratePresignedUrlRequest generatePresignedUrlRequest =
                new GeneratePresignedUrlRequest(bucketName, ObjectKey)
                        .withMethod(HttpMethod.GET)
                        .withExpiration(expiration);
-
-       return  amazonS3.generatePresignedUrl(generatePresignedUrlRequest) ;
+       return  amazonS3.generatePresignedUrl(generatePresignedUrlRequest);
   }
 
 }
